@@ -2,6 +2,10 @@
 
 This projct is a good start if you want to work on a custom nomad cluster with "ministack".
 
+* Nomad is in https mode
+* Nomad servers use gossip encryption
+* Prometheus has rules and new scrape_configs
+
 ## Prepare
 
 This project use ASDF
