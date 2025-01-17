@@ -39,7 +39,7 @@ You can play with nomad configuration for leaning, and/or do the same with prome
 $ ./scripts/reload.sh -target [servers|clients|prometheus|all]
 ```
 
-## URLS
+## URLS
 
 * http://traefik.docker.localhost/
 * http://prometheus.docker.localhost/
