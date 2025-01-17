@@ -1,56 +1,75 @@
-# MINISTACK CUSTOM
+# Ministack Custom
 
-This projct is a good start if you want to work on a custom nomad cluster with "ministack".
+An example repository demonstrating how to use Ministack in a fully customized mode. This setup includes preparation scripts for securing and configuring your Nomad and Prometheus environments.
 
-* Nomad is in https mode
-* Nomad servers use gossip encryption
-* Prometheus has rules and new scrape_configs
+---
 
-## Prepare
+## Features
 
-This project use ASDF
-* https://asdf-vm.com/guide/getting-started.html
+- **Nomad Configuration**: Secure Nomad setup with HTTPS and gossip encryption.
+- **Prometheus Integration**: Includes custom rules and additional `scrape_configs` for improved monitoring.
 
-To install Ministack, follow this step:
-```sh
-$ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | bash
-```
+---
 
-First time, run this script:
+## Prerequisites
+
+1. Install [ASDF](https://asdf-vm.com/guide/getting-started.html) by following their guide.
+2. Ensure you have the necessary permissions to run shell scripts and install dependencies on your system.
+
+---
+
+## Installation
+
+### 1. Install Ministack
+Run the following command to install Ministack:
 ```bash
-# this will install:
-# - asdf dependencies
-# - prepare the .minikube structure
-# - generate certs for nomad
-$ ./scripts/setup.sh
+curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | bash
 ```
 
-## Start / Stop
+### 2. Initial Setup
+Prepare your environment by executing the setup script:
+```bash
+./scripts/setup.sh
+```
+This will:
+- Install ASDF dependencies.
+- Prepare the `.minikube` structure.
+- Generate certificates for Nomad.
 
-```sh
-# start cluster
-$ ministack --config cluster.yaml --start
-# stop cluster
-$ ministack --config cluster.yaml --stop
+---
+
+## Usage
+
+### Start the Cluster
+To start the cluster, use:
+```bash
+ministack --config cluster.yaml --start
 ```
 
-## Update
-
-Every time you change files in the directory files, you can use th __reload.sh__ script to automatically update the good target services.  
-You can play with nomad configuration for leaning, and/or do the same with prometheus.
-
-```sh
-$ ./scripts/reload.sh -target [servers|clients|prometheus|all]
+### Stop the Cluster
+To stop the cluster, use:
+```bash
+ministack --config cluster.yaml --stop
 ```
 
-## URLS
+### Update Configuration
+After modifying files in the `files` directory, reload services using:
+```bash
+./scripts/reload.sh
+```
+This script automatically applies updates to the relevant services.
 
-* http://traefik.docker.localhost/
-* http://prometheus.docker.localhost/
-* http://nomad.docker.localhost/
+---
 
+## Directory Structure
 
-## Documentations
+- **scripts/**: Contains setup and reload scripts.
+- **files/**: Configuration files for Nomad and Prometheus.
 
-* https://developer.hashicorp.com/nomad/tutorials/transport-security/security-gossip-encryption
-* https://developer.hashicorp.com/nomad/tutorials/transport-security/security-enable-tls
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to fork the repository and submit a pull request.
+
+---
