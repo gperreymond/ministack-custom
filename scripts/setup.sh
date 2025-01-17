@@ -2,6 +2,16 @@
 
 CLUSTER_NAME="kestra"
 
+# -----------------------
+# RESUME
+# -----------------------
+
+echo ""
+echo "================================================================="
+echo "[INFO] cluster............................... '${CLUSTER_NAME}'"
+echo "================================================================="
+echo ""
+
 # ASDF installation
 
 echo "[INFO] asdf installation"
@@ -17,6 +27,8 @@ mkdir -p $HOME/.ministack/$CLUSTER_NAME/prometheus/scrape_configs
 mkdir -p $HOME/.ministack/$CLUSTER_NAME/prometheus/rules
 mkdir -p $HOME/.ministack/$CLUSTER_NAME/nomad/certs
 cp files/nomad/*.hcl $HOME/.ministack/$CLUSTER_NAME/nomad/
+cp files/prometheus/rules/*.* $HOME/.ministack/$CLUSTER_NAME/prometheus/rules/
+cp files/prometheus/scrape_configs/*.* $HOME/.ministack/$CLUSTER_NAME/prometheus/scrape_configs/
 
 # GENERATE certificats
 
@@ -27,3 +39,5 @@ nomad tls cert create -server -region global
 nomad tls cert create -client
 nomad tls cert create -cli
 mv *.pem $HOME/.ministack/$CLUSTER_NAME/nomad/certs
+
+echo ""
