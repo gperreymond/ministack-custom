@@ -7,7 +7,7 @@ terraform {
     }
     access_key                  = "2dlM4G1F7Jgm0ryW3gNA"                     # Put your own
     secret_key                  = "Vuch7zg3VVVZZQ6lIOpPdtVgJOv1wGiZaAiorzmg" # Put your own
-    region                      = "main"                                     # Region validation will be skipped
+    region                      = "global"                                   # Region validation will be skipped
     skip_credentials_validation = true                                       # Skip AWS related checks and validations
     skip_requesting_account_id  = true
     skip_metadata_api_check     = true
