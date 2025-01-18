@@ -7,7 +7,7 @@ An example repository demonstrating how to use Ministack in a fully customized m
 ## Features
 
 - **Nomad Configuration**: Secure Nomad setup with HTTPS and gossip encryption.
-- **Prometheus Integration**: Includes custom rules and additional `scrape_configs` for improved monitoring.
+- **Prometheus Integration**: Includes custom `rules` and additional `scrape_configs` for improved monitoring.
 
 ---
 
@@ -22,14 +22,14 @@ An example repository demonstrating how to use Ministack in a fully customized m
 
 ### 1. Install Ministack
 Run the following command to install Ministack:
-```bash
-curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | bash
+```sh
+$ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | sh
 ```
 
 ### 2. Initial Setup
 Prepare your environment by executing the setup script:
-```bash
-./scripts/setup.sh
+```sh
+$ ./scripts/setup.sh
 ```
 This will:
 - Install ASDF dependencies.
@@ -42,20 +42,20 @@ This will:
 
 ### Start the Cluster
 To start the cluster, use:
-```bash
-ministack --config cluster.yaml --start
+```sh
+$ ministack --config cluster.yaml --start
 ```
 
 ### Stop the Cluster
 To stop the cluster, use:
-```bash
-ministack --config cluster.yaml --stop
+```sh
+$ ministack --config cluster.yaml --stop
 ```
 
 ### Update Configuration
 After modifying files in the `files` directory, reload services using:
-```bash
-./scripts/reload.sh
+```sh
+$ ./scripts/reload.sh
 ```
 This script automatically applies updates to the relevant services.
 
@@ -65,6 +65,15 @@ This script automatically applies updates to the relevant services.
 
 - **scripts/**: Contains setup and reload scripts.
 - **files/**: Configuration files for Nomad and Prometheus.
+- **devops/**: Optional works, see `devops/README.md`.
+
+---
+
+## Some useful links
+
+* http://traefik.docker.localhost
+* http://nomad.docker.localhost
+* http://prometheus.docker.localhost
 
 ---
 
