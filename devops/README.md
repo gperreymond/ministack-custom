@@ -42,8 +42,8 @@ Global:
 * http://pgadmin.docker.localhost (admin@localhost.com/changeme)
 
 Kestra:
-* http://kestra-client-1.docker.localhost
-* http://kestra-client-2.docker.localhost
-* khttp://estra-client-3.docker.localhost
+* http://kestra.client-1.docker.localhost
+* http://kestra.client-2.docker.localhost
+* http://kestra.client-3.docker.localhost
 
 ---

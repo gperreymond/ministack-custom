@@ -40,7 +40,7 @@ job "kestra" {
       port     = "http"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.${var.destination}.rule=Host(`kestra-${var.dnsname}.docker.localhost`)",
+        "traefik.http.routers.${var.destination}.rule=Host(`kestra.${var.dnsname}.docker.localhost`)",
         "traefik.http.routers.${var.destination}.entrypoints=web",
         "traefik.http.services.${var.destination}.loadbalancer.passhostheader=true",
       ]
@@ -49,6 +49,12 @@ job "kestra" {
       name     = "${var.destination}-management"
       provider = "nomad"
       port     = "management"
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.${var.destination}-metrics.rule=Host(`kestra.${var.dnsname}.docker.localhost`) && PathPrefix(`/prometheus`)",
+        "traefik.http.routers.${var.destination}-metrics.entrypoints=web",
+        "traefik.http.services.${var.destination}-metrics.loadbalancer.passhostheader=true",
+      ]
     }
     task "kestra" {
       driver = "docker"
