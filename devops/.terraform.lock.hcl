@@ -1,6 +1,48 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/aminueza/minio" {
+  version     = "3.2.2"
+  constraints = "3.2.2"
+  hashes = [
+    "h1:1IBJAWUwx76o5+vUdxRCEfOG38hcrEVu32Xn06l7sOI=",
+    "zh:171106917383c691eb6e46d26b903671d62f861d53198cc4aa4f8b6abc5d7d04",
+    "zh:22a3bed9a04b255de3c539756f077c0b47e99e92d4b69a54e57635bbb67c8914",
+    "zh:3b35fa6847193983b03779bab68fb63086fbb3063f0a2aea48d138bd9bf6d24d",
+    "zh:3ccd2be2c6cc687f9637e5e2f6b0485f7ca73b1a87dfc28af8b34c1db2080f96",
+    "zh:427e118f2b8910b98659bc97af298a4d9a6c2a984d5fe313b9675d1cd4b6392c",
+    "zh:46087196a742659b4610b536b99af46e6e58edd4a8d65daf7fc72e4a9ed9ef99",
+    "zh:5f3154e6c89ead21ef39970e6491c1c04ab9095421fa8853eb35c1d4be7e4cc6",
+    "zh:5ff726bf0edb3a647cf5e066ffdbe74bcd74f0945acbbb1e2d1afb201feeb72f",
+    "zh:60c968d6197562fc0ffc4662034e65413b31773307d780b78aec6e1da9c606ea",
+    "zh:e0d21146d38744be45e42e41ea12e5b99aff3a5a39e4b0e878de05f47ceb9e74",
+    "zh:e8b22688852eb58b4369ae282ba99ec80c955a9608d0f7d787324d7f487a3082",
+    "zh:f7213700753e0225c72314e9d6756ccdb2eae18c99e393f49af55aa8e0c71e56",
+  ]
+}
+
+provider "registry.terraform.io/cyrilgdn/postgresql" {
+  version     = "1.25.0"
+  constraints = "1.25.0"
+  hashes = [
+    "h1:4Hlupc8gYrPnFKisesXs9lypK6LXslU4L4tjBZOhmiE=",
+    "zh:0f9db6e1274603d642e96b58eaf6cc4223f7118f2d7ce909dc4812d332cc002a",
+    "zh:1819470f0304c6a60b2b51817cb43f6ff59a49e08cc9e50644b86b3a76c91601",
+    "zh:27bfb544983cac101a7c7c2e4cb9939a712dffcdd7ddcab83c2f8afc334e33c5",
+    "zh:46166f6f05771b0495df18459fdf3a63fae8b38e95a1b2754f03d006e17ea33d",
+    "zh:64d53afc52f26e8214990acc3e07f3b47bef628aa6b317595a8faec05b252209",
+    "zh:944d7ded418c022dd3ee513246677d601376fa38d76c9c4aecff2c2eefcaa35b",
+    "zh:9819551b61542a6d322d6a323bbb552ce02e769ce2222fd9bb1935473c7c4b3c",
+    "zh:c38bd73e208fe216efab48d099c85b8ad1e51ff102b3892443febc9778e7236e",
+    "zh:c73de133274dcc7a03e95f598550facc59315538f355e57e14b36e222b298826",
+    "zh:c7af02f5338bfe7f1976e01d3fcf82e05b3551893e732539a84c568d25571a84",
+    "zh:d1aa3d7432c7de883873f8f70e9a6207c7b536d874486d37aee0ca8c8853a890",
+    "zh:e17e9809fc7cc2d6f89078b8bfe6308930117b2270be8081820da40029b04828",
+    "zh:e1b21b7b7022e0d468d72f4534d226d57a7bfd8c96a4c7dc2c2fa0bb0b99298d",
+    "zh:f24b73645d8bc225f692bdf9c035411099ef57138569f45f3605ec79ac872e3b",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/nomad" {
   version     = "2.4.0"
   constraints = "2.4.0"

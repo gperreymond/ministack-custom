@@ -1,0 +1,7 @@
+clients:
+  - hostname: kestra-client-1
+    dnsname: client-1
+  - hostname: kestra-client-2
+    dnsname: client-3
+  - hostname: kestra-client-3
+    dnsname: client-3

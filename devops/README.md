@@ -4,7 +4,11 @@ Once the cluster in running, you can now play with terraform, you will have a ke
 
 ---
 
-## Run minio
+## External services
+
+We simulate external services with `docker-compose.yaml`.
+* `minio-single`, for a cloud provider s3 compatible system.
+* `kestra-postgres`, for a cloud provider database dedicated to kestra.
 
 ```sh
 $ cd devops
@@ -34,5 +38,6 @@ $ terraform apply
 * http://nomad.docker.localhost
 * http://prometheus.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
+* http://pgadmin.docker.localhost (admin@localhost.com/changeme)
 
 ---

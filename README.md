@@ -23,7 +23,7 @@ An example repository demonstrating how to use Ministack in a fully customized m
 ### 1. Install Ministack
 Run the following command to install Ministack:
 ```sh
-$ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | sh
+$ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/install | bash
 ```
 
 ### 2. Initial Setup

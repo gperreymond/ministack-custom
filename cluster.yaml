@@ -12,13 +12,13 @@ services:
     extra_volumes:
       - 'certs'
     clients:
-      - name: 'kestra-system'
+      - name: 'kestra-client-1'
         extra_volumes:
           - 'certs'
-      - name: 'kestra-runner-1'
+      - name: 'kestra-client-2'
         extra_volumes:
           - 'certs'
-      - name: 'kestra-runner-2'
+      - name: 'kestra-client-3'
         extra_volumes:
           - 'certs'
 
