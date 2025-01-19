@@ -72,6 +72,6 @@ resource "null_resource" "kestra" {
     nomad_namespace.kestra,
     nomad_variable.kestra_minio_configuration,
     nomad_variable.kestra_postgres_configuration,
-    # nomad_job.kestra,
+    nomad_job.kestra,
   ]
 }

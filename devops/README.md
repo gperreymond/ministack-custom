@@ -34,10 +34,16 @@ $ terraform apply
 
 ## Some useful links
 
+Global:
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
 * http://prometheus.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
 * http://pgadmin.docker.localhost (admin@localhost.com/changeme)
+
+Kestra:
+* http://kestra-client-1.docker.localhost
+* http://kestra-client-2.docker.localhost
+* khttp://estra-client-3.docker.localhost
 
 ---

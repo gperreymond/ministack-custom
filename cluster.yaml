@@ -25,6 +25,9 @@ services:
 plugins:
   traefik:
     enabled: true
+    version: '3.3.2'
+    extra_args:
+      - '--providers.nomad.namespaces=kestra-client-1,kestra-client-2,kestra-client-3'
   prometheus:
     enabled: true
     customized: true
