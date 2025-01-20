@@ -40,7 +40,7 @@ job "kestra" {
       port     = "http"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.${var.destination}.rule=Host(`kestra.${var.dnsname}.docker.localhost`)",
+        "traefik.http.routers.${var.destination}.rule=Host(`${var.dnsname}`)",
         "traefik.http.routers.${var.destination}.entrypoints=web",
         "traefik.http.services.${var.destination}.loadbalancer.passhostheader=true",
       ]
