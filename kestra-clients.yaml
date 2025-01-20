@@ -1,0 +1,7 @@
+clients:
+  - hostname: kestra-client-1
+    dnsname: kestra.client-1.docker.localhost
+  - hostname: kestra-client-2
+    dnsname: kestra.client-3.docker.localhost
+  - hostname: kestra-client-3
+    dnsname: kestra.client-3.docker.localhost
