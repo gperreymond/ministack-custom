@@ -1,3 +1,3 @@
 locals {
-  clients = yamldecode(file("${path.module}/data.yaml")).clients
+  clients = yamldecode(data.http.kestra_clients.response_body).clients
 }

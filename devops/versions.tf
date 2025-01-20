@@ -1,5 +1,9 @@
 terraform {
   required_providers {
+    http = {
+      source  = "hashicorp/http"
+      version = "3.4.1"
+    }
     minio = {
       source  = "aminueza/minio"
       version = "3.2.2"

@@ -113,7 +113,7 @@ EOF
         destination = "local/application.yml"
       }
       resources {
-        cpu    = 500
+        cpu    = 350
         memory = 1024
       }
     }
