@@ -1,3 +1,7 @@
+// --------------------------------------------------------
+// KESTRA
+// --------------------------------------------------------
+
 resource "minio_iam_user" "kestra" {
   for_each = { for client in local.clients : client.hostname => client }
 

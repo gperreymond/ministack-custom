@@ -1,3 +1,7 @@
+// --------------------------------------------------------
+// KESTRA
+// --------------------------------------------------------
+
 resource "random_password" "kestra_postgres" {
   for_each = { for client in local.clients : client.hostname => client }
 
