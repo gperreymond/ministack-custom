@@ -1,6 +1,7 @@
 # DEVOPS
 
-Once the cluster in running, you can now play with terraform, you will have a kestra deployment and managment with terraform.
+Once the cluster in running, you can now play with this project, the main goal will b to dynamically maintain ketra in single tenant mode.
+Everytime, you add or remove a client, it will create a nomad client node, and a full provisionning or kestra in standalone mode.
 
 ---
 
@@ -19,6 +20,7 @@ $ docker compose up -d
 
 ## Terraform configurations
 
+Before applying:
 ```txt
 [x] http://minio-webui.docker.localhost/buckets, create a bucket named `devops-terraform`
 [x] http://minio-webui.docker.localhost/access-keys, create `access_key` and `secret_key`, in `read/write`
