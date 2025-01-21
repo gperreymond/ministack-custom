@@ -18,3 +18,7 @@ provider "postgresql" {
   password = var.provider_postgres_password
   sslmode  = "disable"
 }
+
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+}

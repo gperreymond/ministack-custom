@@ -13,8 +13,9 @@ resource "minio_iam_user" "kestra" {
 resource "minio_s3_bucket" "kestra" {
   for_each = { for client in local.clients : client.hostname => client }
 
-  bucket = each.value.hostname
-  acl    = "private"
+  bucket        = each.value.hostname
+  force_destroy = true
+  acl           = "private"
 }
 
 resource "minio_iam_service_account" "kestra" {

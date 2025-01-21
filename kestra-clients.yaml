@@ -1,1 +1,3 @@
-clients: []
+clients:
+  - hostname: kestra-client-1
+    dnsname: kestra.client-1.docker.localhost
