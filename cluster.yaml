@@ -11,23 +11,23 @@ services:
       tls: true
     extra_volumes:
       - 'certs'
-    # clients:
-    #   - name: 'kestra-client-1'
-    #     extra_volumes:
-    #       - 'certs'
-    #   - name: 'kestra-client-2'
-    #     extra_volumes:
-    #       - 'certs'
-    #   - name: 'kestra-client-3'
-    #     extra_volumes:
-    #       - 'certs'
+    clients:
+      - name: 'kestra-client-1'
+        extra_volumes:
+          - 'certs'
+      - name: 'kestra-client-2'
+        extra_volumes:
+          - 'certs'
+      - name: 'kestra-client-3'
+        extra_volumes:
+          - 'certs'
 
 plugins:
   traefik:
     enabled: true
     version: '3.3.2'
     extra_args:
-      - '--providers.nomad.namespaces=*'
+      - '--providers.nomad.namespaces=kestra-client-1,kestra-client-2,kestra-client-3'
   prometheus:
     enabled: true
     customized: true
