@@ -16,6 +16,22 @@ resource "docker_volume" "nomad_client" {
   ]
 }
 
+resource "docker_container" "nomad_client" {
+  for_each = { for client in local.clients : client.hostname => client }
+
+  name     = each.value.hostname
+  image    = docker_image.hashibase.name
+  hostname = each.value.hostname
+  env = [
+    "MINISTACK=true",
+    "NOMAD_VERSION=1.9.5",
+  ]
+
+  depends_on = [
+    docker_volume.nomad_client,
+  ]
+}
+
 # resource "nomad_namespace" "kestra" {
 #   for_each = { for client in local.clients : client.hostname => client }
 
@@ -90,6 +106,7 @@ resource "null_resource" "kestra" {
     // resources
     docker_image.hashibase,
     docker_volume.nomad_client,
+    docker_container.nomad_client,
     # nomad_namespace.kestra,
     # nomad_variable.kestra_minio_configuration,
     # nomad_variable.kestra_postgres_configuration,

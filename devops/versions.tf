@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.1"
     }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.5.2"
+    }
     minio = {
       source  = "aminueza/minio"
       version = "3.2.2"

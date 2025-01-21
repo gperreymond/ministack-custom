@@ -21,73 +21,10 @@ services:
     networks:
       ministack:
         ipv4_address: '10.1.0.21'
-    depends_on:
-      'nomad-server-1':
-        condition: service_healthy
-      'nomad-server-2':
-        condition: service_healthy
-      'nomad-server-3':
-        condition: service_healthy
-  kestra-client-2:
-    image: 'ghcr.io/gperreymond/hashibase:base-1.0.0'
-    container_name: 'kestra-client-2'
-    hostname: 'kestra-client-2'
-    privileged: 'true'
-    post_start:
-      - command: 'start-ministack'
-    pre_stop:
-      - command: 'service nomad stop'
-    environment:
-      MINISTACK: 'true'
-      NOMAD_VERSION: '1.9.5'
-    volumes:
-      - '/tmp/ministack/configurations/nomad/config.hcl:/nomad/config/config.hcl'
-      - '/tmp/ministack/configurations/nomad/base.hcl:/etc/nomad.d/config/00-base.hcl'
-      - '/tmp/ministack/configurations/nomad/client.hcl:/etc/nomad.d/config/00-client.hcl'
-      - '$HOME/.ministack/kestra/nomad/client.hcl:/etc/nomad.d/config/01-client.hcl'
-      - '$HOME/.ministack/kestra/nomad/certs:/certs'
-      - 'nomad_client_kestra-client-2_data:/nomad/data'
-    networks:
-      ministack:
-        ipv4_address: '10.1.0.22'
-    depends_on:
-      'nomad-server-1':
-        condition: service_healthy
-      'nomad-server-2':
-        condition: service_healthy
-      'nomad-server-3':
-        condition: service_healthy
-  kestra-client-3:
-    image: 'ghcr.io/gperreymond/hashibase:base-1.0.0'
-    container_name: 'kestra-client-3'
-    hostname: 'kestra-client-3'
-    privileged: 'true'
-    post_start:
-      - command: 'start-ministack'
-    pre_stop:
-      - command: 'service nomad stop'
-    environment:
-      MINISTACK: 'true'
-      NOMAD_VERSION: '1.9.5'
-    volumes:
-      - '/tmp/ministack/configurations/nomad/config.hcl:/nomad/config/config.hcl'
-      - '/tmp/ministack/configurations/nomad/base.hcl:/etc/nomad.d/config/00-base.hcl'
-      - '/tmp/ministack/configurations/nomad/client.hcl:/etc/nomad.d/config/00-client.hcl'
-      - '$HOME/.ministack/kestra/nomad/client.hcl:/etc/nomad.d/config/01-client.hcl'
-      - '$HOME/.ministack/kestra/nomad/certs:/certs'
-      - 'nomad_client_kestra-client-3_data:/nomad/data'
-    networks:
-      ministack:
-        ipv4_address: '10.1.0.23'
-    depends_on:
-      'nomad-server-1':
-        condition: service_healthy
-      'nomad-server-2':
-        condition: service_healthy
-      'nomad-server-3':
-        condition: service_healthy
 
 volumes:
   nomad_client_kestra-client-1_data: {}
-  nomad_client_kestra-client-2_data: {}
-  nomad_client_kestra-client-3_data: {}
+
+networks:
+  kestra_ministack:
+    external: true

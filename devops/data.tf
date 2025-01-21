@@ -1,3 +1,3 @@
-data "http" "kestra_clients" {
-  url = "https://raw.githubusercontent.com/gperreymond/ministack-custom/refs/heads/main/kestra-clients.yaml"
+data "local_file" "kestra_clients" {
+  filename = "${path.module}/../kestra-clients.yaml"
 }
