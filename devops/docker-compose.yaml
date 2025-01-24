@@ -1,16 +1,6 @@
 name: devops
 
 services:
-  # NETBIRD
-  netbird-agent:
-    image: 'netbirdio/netbird:0.36.3'
-    container_name: 'netbird-agent'
-    network_mode: 'host'
-    privileged: true
-    env_file:
-      - '.env'
-    volumes:
-      - '/mnt/netbird_client_data:/etc/netbird'
   # BUCKETS
   minio-single:
     image: 'minio/minio:RELEASE.2024-12-18T13-15-44Z'
