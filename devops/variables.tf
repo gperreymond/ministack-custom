@@ -37,3 +37,13 @@ variable "provider_postgres_password" {
   type    = string
   default = "changeme"
 }
+
+variable "provider_keycloak_username" {
+  type    = string
+  default = "admin"
+}
+
+variable "provider_keycloak_password" {
+  type    = string
+  default = "changeme"
+}

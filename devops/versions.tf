@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.1"
     }
+    keycloak = {
+      source  = "keycloak/keycloak"
+      version = "5.0.0"
+    }
     local = {
       source  = "hashicorp/local"
       version = "2.5.2"

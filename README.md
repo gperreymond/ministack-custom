@@ -66,7 +66,7 @@ This script automatically applies updates to the relevant services.
 - **scripts/**: Contains setup and reload scripts.
 - **files/**: Configuration files for Nomad and Prometheus.
 - **devops/**: Optional works, see `devops/README.md`.
-- **netbird/**: Optional works, see `netbird/README.md`.
+- **netbird/**: Work in progress for self hosted in docker composee.
 
 ---
 

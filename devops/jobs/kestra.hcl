@@ -1,52 +1,36 @@
-variable "kestra_docker_tag" {
-  type    = string
-  default = ""
-}
-
-variable "destination" {
-  type    = string
-  default = ""
-}
-
-variable "dnsname" {
-  type    = string
-  default = ""
-}
-
 job "kestra" {
   region      = "global"
   datacenters = ["*"]
-  namespace   = var.destination
+  namespace   = "${destination}"
   type        = "service"
   constraint {
-    attribute = "${attr.unique.hostname}"
+    attribute = "$${attr.unique.hostname}"
     operator  = "="
-    value     = "${var.destination}"
+    value     = "${destination}"
   }
   update {
     stagger      = "30s"
     max_parallel = 1
   }
   group "kestra" {
-    count = 1
     network {
-      mode = "bridge"
+      mode = "host"
       port "http" { to = 8080 }
       port "management" { to = 8081 }
     }
     service {
-      name     = "${var.destination}-http"
+      name     = "${destination}-http"
       provider = "nomad"
       port     = "http"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.${var.destination}.rule=Host(`${var.dnsname}`)",
-        "traefik.http.routers.${var.destination}.entrypoints=web",
-        "traefik.http.services.${var.destination}.loadbalancer.passhostheader=true",
+        "traefik.http.routers.${destination}.rule=Host(`${dnsname}`)",
+        "traefik.http.routers.${destination}.entrypoints=web",
+        "traefik.http.services.${destination}.loadbalancer.passhostheader=true",
       ]
     }
     service {
-      name     = "${var.destination}-management"
+      name     = "${destination}-management"
       provider = "nomad"
       port     = "management"
       tags = [
@@ -61,7 +45,7 @@ job "kestra" {
         max_file_size = 5
       }
       config {
-        image = "kestra/kestra:v${var.kestra_docker_tag}"
+        image = "kestra/kestra:v${docker_tag}"
         args  = ["server", "standalone"]
         ports = ["http", "management"]
         volumes = [
@@ -82,7 +66,7 @@ EOH
         data        = <<-EOF
 datasources:
   postgres:
-    {{- with nomadVar "kestra/${var.destination}/configuration/postgres" }}
+    {{- with nomadVar "kestra/${destination}/configuration/postgres" }}
     url: 'jdbc:postgresql://{{ .host }}:{{ .port }}/{{ .database }}'
     driverClassName: 'org.postgresql.Driver'
     username: '{{ .username }}'
@@ -101,7 +85,7 @@ kestra:
   storage:
     type: 'minio'
     minio:
-      {{- with nomadVar "kestra/${var.destination}/configuration/minio" }}
+      {{- with nomadVar "kestra/${destination}/configuration/minio" }}
       endpoint: '{{ .endpoint }}'
       port: '{{ .port }}'
       access-key: '{{ .access_key }}'
