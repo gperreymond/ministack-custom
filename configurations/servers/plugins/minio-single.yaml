@@ -1,0 +1,27 @@
+services:
+  minio-single:
+    image: 'minio/minio:RELEASE.2024-12-18T13-15-44Z'
+    container_name: 'minio-single'
+    command: 'server --console-address ":9001"'
+    environment:
+      MINIO_CONFIG_ENV_FILE: '/etc/config.env'
+      MINIO_BROWSER_REDIRECT_URL: 'http://minio-webui.docker.localhost'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.minio-webui.rule=Host(`minio-webui.docker.localhost`)'
+      - 'traefik.http.routers.minio-webui.entrypoints=web'
+      - 'traefik.http.routers.minio-webui.service=minio-webui'
+      - 'traefik.http.services.minio-webui.loadbalancer.server.port=9001'
+      - 'traefik.http.routers.minio.rule=Host(`s3.docker.localhost`)'
+      - 'traefik.http.routers.minio.entrypoints=web'
+      - 'traefik.http.routers.minio.service=minio'
+      - 'traefik.http.services.minio.loadbalancer.server.port=9000'
+    volumes:
+      - './configurations/minio-single/config.env:/etc/config.env:ro'
+      - 'minio_single_data:/mnt/data'
+    networks:
+      ministack:
+        ipv4_address: '10.1.0.55'
+
+volumes:
+  minio_single_data: {}

@@ -1,14 +1,13 @@
 provider "nomad" {
   address = "http://nomad.docker.localhost"
-  region  = "global"
 }
 
-provider "keycloak" {
-  url       = "http://keycloak.docker.localhost"
-  client_id = "admin-cli"
-  username  = var.provider_keycloak_username
-  password  = var.provider_keycloak_password
-}
+# provider "keycloak" {
+#   url       = "http://keycloak.docker.localhost"
+#   client_id = "admin-cli"
+#   username  = var.provider_keycloak_username
+#   password  = var.provider_keycloak_password
+# }
 
 provider "minio" {
   minio_server   = "${var.provider_minio_host}:${var.provider_minio_port}"
@@ -17,15 +16,11 @@ provider "minio" {
   minio_ssl      = false
 }
 
-provider "postgresql" {
-  host     = var.provider_postgres_host
-  port     = var.provider_postgres_port
-  database = "kestra"
-  username = var.provider_postgres_username
-  password = var.provider_postgres_password
-  sslmode  = "disable"
-}
-
-provider "docker" {
-  host = "unix:///var/run/docker.sock"
-}
+# provider "postgresql" {
+#   host     = var.provider_postgres_host
+#   port     = var.provider_postgres_port
+#   database = "kestra"
+#   username = var.provider_postgres_username
+#   password = var.provider_postgres_password
+#   sslmode  = "disable"
+# }

@@ -1,49 +1,52 @@
 job "kestra" {
-  region      = "global"
-  datacenters = ["*"]
+  datacenters = ["europe-paris"]
   namespace   = "${destination}"
   type        = "service"
+
   constraint {
     attribute = "$${attr.unique.hostname}"
     operator  = "="
     value     = "${destination}"
   }
+
   update {
     stagger      = "30s"
     max_parallel = 1
   }
+
   group "kestra" {
+
     network {
       mode = "host"
       port "http" { to = 8080 }
       port "management" { to = 8081 }
     }
-    service {
-      name     = "${destination}-http"
-      provider = "nomad"
-      port     = "http"
-      tags = [
-        "traefik.enable=true",
-        "traefik.http.routers.${destination}.rule=Host(`${dnsname}`)",
-        "traefik.http.routers.${destination}.entrypoints=web",
-        "traefik.http.services.${destination}.loadbalancer.passhostheader=true",
-      ]
-    }
-    service {
-      name     = "${destination}-management"
-      provider = "nomad"
-      port     = "management"
-      tags = [
-        "prometheus/scrape=true",
-      ]
-    }
+
     task "kestra" {
       driver = "docker"
       user   = "root"
-      logs {
-        max_files     = 1
-        max_file_size = 5
+
+      service {
+        name     = "${destination}-http"
+        provider = "nomad"
+        port     = "http"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.${destination}.rule=Host(`${dnsname}`)",
+          "traefik.http.routers.${destination}.entrypoints=web",
+          "traefik.http.services.${destination}.loadbalancer.passhostheader=true",
+        ]
       }
+      
+      service {
+        name     = "${destination}-management"
+        provider = "nomad"
+        port     = "management"
+        tags = [
+          "prometheus/scrape=true",
+        ]
+      }
+
       config {
         image = "kestra/kestra:v${docker_tag}"
         args  = ["server", "standalone"]
@@ -54,6 +57,7 @@ job "kestra" {
           "local/application.yml:/app/confs/application.yml:ro",
         ]
       }
+
       template {
         data        = <<EOH
 JVM_ARGS="-Xms1024m -Xmx1024m"
@@ -62,6 +66,7 @@ EOH
         destination = "local/config.env"
         env         = true
       }
+
       template {
         data        = <<-EOF
 datasources:
@@ -96,9 +101,15 @@ kestra:
 EOF
         destination = "local/application.yml"
       }
+      
       resources {
         cpu    = 350
         memory = 1024
+      }
+
+      logs {
+        max_files     = 1
+        max_file_size = 5
       }
     }
   }

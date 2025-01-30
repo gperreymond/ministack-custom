@@ -1,6 +1,6 @@
 variable "provider_minio_host" {
   type    = string
-  default = "10.1.0.54"
+  default = "10.1.0.55"
 }
 
 variable "provider_minio_port" {

@@ -2,7 +2,10 @@ name: 'kestra'
 datacenter: 'europe-paris'
 
 plugins:
+  # simulate external loadbalancer
   - 'plugins/traefik.yaml'
+  # simulate external bucket s3
+  - 'plugins/minio-single.yaml'
 
 services:
   nomad:

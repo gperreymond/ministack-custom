@@ -62,7 +62,7 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
-* http://prometheus.docker.localhost
+* http://minio-webui.docker.localhost (admin/changeme)
 
 ---
 
