@@ -1,4 +1,4 @@
+.ministack
+
 .terraform
 .terraform.lock.hcl
-
-.env

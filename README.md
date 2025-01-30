@@ -6,8 +6,7 @@ An example repository demonstrating how to use Ministack in a fully customized m
 
 ## Features
 
-- **Nomad Configuration**: Secure Nomad setup with HTTPS and gossip encryption.
-- **Prometheus Integration**: Includes custom `rules` and additional `scrape_configs` for improved monitoring.
+- **Nomad Cluster**: With only servers setup
 
 ---
 
@@ -29,12 +28,10 @@ $ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/instal
 ### 2. Initial Setup
 Prepare your environment by executing the setup script:
 ```sh
-$ ./scripts/setup.sh
+$ ./scripts/asdf.sh
 ```
 This will:
-- Install ASDF dependencies.
-- Prepare the `.minikube` structure.
-- Generate certificates for Nomad.
+* Install ASDF dependencies.
 
 ---
 
@@ -43,30 +40,21 @@ This will:
 ### Start the Cluster
 To start the cluster, use:
 ```sh
-$ ministack --config cluster.yaml --start
+$ ministack --config configurations/servers/cluster.yaml --start
 ```
 
 ### Stop the Cluster
 To stop the cluster, use:
 ```sh
-$ ministack --config cluster.yaml --stop
+$ ministack --config configurations/servers/cluster.yaml --stop
 ```
-
-### Update Configuration
-After modifying files in the `files` directory, reload services using:
-```sh
-$ ./scripts/reload.sh
-```
-This script automatically applies updates to the relevant services.
 
 ---
 
 ## Directory Structure
 
-- **scripts/**: Contains setup and reload scripts.
-- **files/**: Configuration files for Nomad and Prometheus.
-- **devops/**: Optional works, see `devops/README.md`.
-- **netbird/**: Work in progress for self hosted in docker composee.
+- **scripts/**: Contains script.
+- **devops/**: Contains all works to have dynamic kestra single tenant clients.
 
 ---
 

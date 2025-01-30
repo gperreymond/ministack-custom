@@ -1,0 +1,21 @@
+name: 'kestra'
+datacenter: 'europe-paris'
+
+plugins:
+  - 'plugins/traefik.yaml'
+
+services:
+  nomad:
+    enabled: true
+    config:
+      server:
+        bootstrap_expect: 3
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.nomad.rule=Host(`nomad.docker.localhost`)'
+          - 'traefik.http.routers.nomad.entrypoints=web'
+          - 'traefik.http.services.nomad.loadbalancer.server.port=4646'
+    servers:
+      - name: 'nomad-server-1'
+      - name: 'nomad-server-2'
+      - name: 'nomad-server-3'
