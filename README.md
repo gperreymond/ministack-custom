@@ -7,7 +7,7 @@ An example repository demonstrating how to use Ministack in a fully customized m
 ## Features
 
 - **Nomad Cluster**: With only servers setup
-- **Kestra**: A complete terraform examples, of how to add single tenant kestra client with nomad at edge client.
+- **Kestra**: A complete terraform examples, adding single tenant kestra clients with nomad at edge
 
 ```yaml
 name: 'kestra'
