@@ -4,7 +4,7 @@ resource "nomad_namespace" "kestra" {
   name = each.value.hostname
 
   depends_on = [
-    null_resource.netbird,
+    null_resource.postgres,
   ]
 }
 
@@ -45,30 +45,30 @@ resource "nomad_variable" "kestra_postgres_configuration" {
   ]
 }
 
-resource "nomad_job" "kestra" {
-  for_each = { for client in local.clients : client.hostname => client }
+# resource "nomad_job" "kestra" {
+#   for_each = { for client in local.clients : client.hostname => client }
 
-  jobspec = templatefile("${path.module}/jobs/kestra.hcl", {
-    destination = nomad_namespace.kestra[each.value.hostname].id,
-    docker_tag  = "0.20.12"
-    dnsname     = each.value.dnsname
-  })
-  purge_on_destroy = true
+#   jobspec = templatefile("${path.module}/jobs/kestra.hcl", {
+#     destination = nomad_namespace.kestra[each.value.hostname].id,
+#     docker_tag  = "0.20.12"
+#     dnsname     = each.value.dnsname
+#   })
+#   purge_on_destroy = true
 
-  depends_on = [
-    nomad_variable.kestra_minio_configuration,
-    nomad_variable.kestra_postgres_configuration,
-  ]
-}
+#   depends_on = [
+#     nomad_variable.kestra_minio_configuration,
+#     nomad_variable.kestra_postgres_configuration,
+#   ]
+# }
 
 resource "null_resource" "kestra" {
   depends_on = [
     // parent
-    null_resource.netbird,
+    null_resource.postgres,
     // resources
     nomad_namespace.kestra,
     nomad_variable.kestra_minio_configuration,
     nomad_variable.kestra_postgres_configuration,
-    nomad_job.kestra,
+    # nomad_job.kestra,
   ]
 }

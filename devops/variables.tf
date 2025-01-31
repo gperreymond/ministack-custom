@@ -37,3 +37,8 @@ variable "provider_postgres_password" {
   type    = string
   default = "changeme"
 }
+
+variable "traefik_ip" {
+  type    = string
+  default = "10.1.0.2"
+}
