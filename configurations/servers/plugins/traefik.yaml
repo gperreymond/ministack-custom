@@ -19,6 +19,7 @@ services:
       - '--providers.nomad.exposedByDefault=false'
       - '--entryPoints.web.address=:80'
       - '--entryPoints.metrics.address=:8082'
+      - '--entryPoints.rds.address=:5432'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik-dashboard.rule=Host(`traefik.docker.localhost`)'
@@ -26,6 +27,7 @@ services:
       - 'traefik.http.routers.traefik-dashboard.service=api@internal'
     ports:
       - '80:80/tcp'
+      - '5432:5432/tcp'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     depends_on:

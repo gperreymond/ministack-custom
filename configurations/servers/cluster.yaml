@@ -6,6 +6,8 @@ plugins:
   - 'plugins/traefik.yaml'
   # simulate external bucket s3
   - 'plugins/minio-single.yaml'
+  # simulate external rds postgres 
+  - 'plugins/postgres.yaml'
 
 services:
   nomad:

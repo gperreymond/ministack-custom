@@ -16,11 +16,10 @@ provider "minio" {
   minio_ssl      = false
 }
 
-# provider "postgresql" {
-#   host     = var.provider_postgres_host
-#   port     = var.provider_postgres_port
-#   database = "kestra"
-#   username = var.provider_postgres_username
-#   password = var.provider_postgres_password
-#   sslmode  = "disable"
-# }
+provider "postgresql" {
+  host     = var.provider_postgres_host
+  port     = var.provider_postgres_port
+  username = var.provider_postgres_username
+  password = var.provider_postgres_password
+  sslmode  = "disable"
+}

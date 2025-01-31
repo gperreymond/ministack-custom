@@ -20,8 +20,7 @@ services:
       - './configurations/minio-single/config.env:/etc/config.env:ro'
       - 'minio_single_data:/mnt/data'
     networks:
-      ministack:
-        ipv4_address: '10.1.0.55'
+      ministack: {}
 
 volumes:
   minio_single_data: {}

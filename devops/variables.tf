@@ -1,11 +1,11 @@
 variable "provider_minio_host" {
   type    = string
-  default = "10.1.0.55"
+  default = "s3.docker.localhost"
 }
 
 variable "provider_minio_port" {
   type    = string
-  default = "9000"
+  default = "80"
 }
 
 variable "provider_minio_username" {
@@ -20,7 +20,7 @@ variable "provider_minio_password" {
 
 variable "provider_postgres_host" {
   type    = string
-  default = "10.1.0.55"
+  default = "rds-postgres.docker.localhost"
 }
 
 variable "provider_postgres_port" {
@@ -34,16 +34,6 @@ variable "provider_postgres_username" {
 }
 
 variable "provider_postgres_password" {
-  type    = string
-  default = "changeme"
-}
-
-variable "provider_keycloak_username" {
-  type    = string
-  default = "admin"
-}
-
-variable "provider_keycloak_password" {
   type    = string
   default = "changeme"
 }

@@ -1,0 +1,23 @@
+services:
+  rds-postgres:
+    image: 'postgres:16.6-alpine3.21'
+    container_name: 'rds-postgres'
+    environment:
+      POSTGRES_DB: 'amazon'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'changeme'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.tcp.routers.rds-postgres.rule=HostSNI(`*`)'
+      - 'traefik.tcp.routers.rds-postgres.tls=false'
+      - 'traefik.tcp.routers.rds-postgres.entrypoints=rds'
+      - 'traefik.tcp.routers.rds-postgres.service=rds-postgres'
+      - 'traefik.tcp.services.rds-postgres.loadbalancer.server.tls=false'
+      - 'traefik.tcp.services.rds-postgres.loadbalancer.server.port=5432'
+    volumes:
+      - 'rds_postgres_data:/var/lib/postgresql/data'
+    networks:
+      ministack: {}
+
+volumes:
+  rds_postgres_data: {}

@@ -51,6 +51,16 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 
 ---
 
+### Terraform
+
+```sh
+$ cd devops
+$ terraform init
+$ terraform apply
+```
+
+---
+
 ## Directory Structure
 
 - **scripts/**: Contains script.
