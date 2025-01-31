@@ -7,6 +7,36 @@ An example repository demonstrating how to use Ministack in a fully customized m
 ## Features
 
 - **Nomad Cluster**: With only servers setup
+- **Kestra**: A complete terraform examples, of how to add single tenant kestra client with nomad at edge client.
+
+```yaml
+name: 'kestra'
+datacenter: 'europe-paris'
+
+plugins:
+  # simulate external loadbalancer
+  - 'plugins/traefik.yaml'
+  # simulate external bucket s3
+  - 'plugins/minio-single.yaml'
+  # simulate external rds postgres 
+  - 'plugins/postgres.yaml'
+
+services:
+  nomad:
+    enabled: true
+    config:
+      server:
+        bootstrap_expect: 3
+        labels:
+          - 'traefik.enable=true'
+          - 'traefik.http.routers.nomad.rule=Host(`nomad.docker.localhost`)'
+          - 'traefik.http.routers.nomad.entrypoints=web'
+          - 'traefik.http.services.nomad.loadbalancer.server.port=4646'
+    servers:
+      - name: 'nomad-server-1'
+      - name: 'nomad-server-2'
+      - name: 'nomad-server-3'
+```
 
 ---
 
