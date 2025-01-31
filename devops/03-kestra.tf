@@ -2,8 +2,26 @@ resource "local_file" "kestra_nomad_client" {
   for_each = { for client in local.clients : client.hostname => client }
 
   content  = <<-EOF
-name: '${each.value.hostname}'
+name: 'kestra'
 datacenter: 'europe-paris'
+
+network:
+  external:
+    enabled: true
+    name: 'kestra'
+
+services:
+  nomad:
+    enabled: true
+    config:
+      client:
+        retry_join:
+          - 'europe-paris-nomad-server-1'
+          - 'europe-paris-nomad-server-2'
+          - 'europe-paris-nomad-server-3'
+    clients:
+      - name: '${each.value.hostname}'
+        loop_index: ${each.value.loop_index}
 EOF
   filename = "${path.module}/../configurations/clients/${each.value.hostname}/cluster.yaml"
 
@@ -80,6 +98,7 @@ resource "null_resource" "kestra" {
     // parent
     null_resource.postgres,
     // resources
+    local_file.kestra_nomad_client,
     nomad_namespace.kestra,
     nomad_variable.kestra_minio_configuration,
     nomad_variable.kestra_postgres_configuration,

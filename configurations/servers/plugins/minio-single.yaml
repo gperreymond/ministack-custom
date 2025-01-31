@@ -19,6 +19,9 @@ services:
     volumes:
       - './configurations/minio-single/config.env:/etc/config.env:ro'
       - 'minio_single_data:/mnt/data'
+    depends_on:
+      traefik:
+        condition: 'service_healthy'
     networks:
       ministack: {}
 

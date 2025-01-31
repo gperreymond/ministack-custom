@@ -16,6 +16,9 @@ services:
       - 'traefik.tcp.services.rds-postgres.loadbalancer.server.port=5432'
     volumes:
       - 'rds_postgres_data:/var/lib/postgresql/data'
+    depends_on:
+      traefik:
+        condition: 'service_healthy'
     networks:
       ministack: {}
 

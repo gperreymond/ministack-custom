@@ -20,6 +20,12 @@ services:
       - '--entryPoints.web.address=:80'
       - '--entryPoints.metrics.address=:8082'
       - '--entryPoints.rds.address=:5432'
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik-dashboard.rule=Host(`traefik.docker.localhost`)'
