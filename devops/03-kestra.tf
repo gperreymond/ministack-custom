@@ -1,10 +1,24 @@
+resource "local_file" "kestra_nomad_client" {
+  for_each = { for client in local.clients : client.hostname => client }
+
+  content  = <<-EOF
+name: '${each.value.hostname}'
+datacenter: 'europe-paris'
+EOF
+  filename = "${path.module}/../configurations/clients/${each.value.hostname}/cluster.yaml"
+
+  depends_on = [
+    null_resource.postgres,
+  ]
+}
+
 resource "nomad_namespace" "kestra" {
   for_each = { for client in local.clients : client.hostname => client }
 
   name = each.value.hostname
 
   depends_on = [
-    null_resource.postgres,
+    local_file.kestra_nomad_client,
   ]
 }
 

@@ -1,6 +1,6 @@
 # Ministack Custom
 
-An example repository demonstrating how to use Ministack in a fully customized mode. This setup includes preparation scripts for securing and configuring your Nomad and Prometheus environments.
+An example repository demonstrating how to use Ministack.
 
 ---
 
