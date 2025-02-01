@@ -86,6 +86,8 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 ```sh
 $ terragrunt init
 $ terragrunt apply
+$ ministack --config configurations/clients/kestra-client-1/cluster.yaml --start
+$ ministack --config configurations/clients/kestra-client-2/cluster.yaml --start
 ```
 
 ---
@@ -102,6 +104,8 @@ $ terragrunt apply
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
+* kestra.client-1.docker.localhost
+* kestra.client-2.docker.localhost
 
 ---
 

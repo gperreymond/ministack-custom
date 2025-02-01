@@ -6,7 +6,7 @@ job "kestra" {
   constraint {
     attribute = "$${attr.unique.hostname}"
     operator  = "="
-    value     = "${destination}"
+    value     = "europe-paris-${destination}"
   }
 
   update {
@@ -55,6 +55,10 @@ job "kestra" {
           "/var/run/docker.sock:/var/run/docker.sock",
           "/tmp/kestra-wd:/tmp/kestra-wd",
           "local/application.yml:/app/confs/application.yml:ro",
+        ]
+        extra_hosts = [
+          "s3.docker.localhost:${traefik_ip}",
+          "rds-postgres.docker.localhost:${traefik_ip}"
         ]
       }
 
