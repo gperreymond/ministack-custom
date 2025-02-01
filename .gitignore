@@ -1,5 +1,6 @@
 .ministack
 
+.terragrunt-cache
 .terraform
 .terraform.lock.hcl
 

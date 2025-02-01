@@ -23,7 +23,7 @@ services:
       - name: '${each.value.hostname}'
         loop_index: ${each.value.loop_index}
 EOF
-  filename = "${path.module}/../configurations/clients/${each.value.hostname}/cluster.yaml"
+  filename = "${var.root_path}/../../../configurations/clients/${each.value.hostname}/cluster.yaml"
 
   depends_on = [
     null_resource.postgres,

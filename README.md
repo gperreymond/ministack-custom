@@ -81,12 +81,11 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 
 ---
 
-### Terraform
+### Terragrunt
 
 ```sh
-$ cd devops
-$ terraform init
-$ terraform apply
+$ terragrunt init
+$ terragrunt apply
 ```
 
 ---

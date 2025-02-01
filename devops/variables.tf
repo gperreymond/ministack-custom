@@ -1,3 +1,11 @@
+variable "root_path" {
+  type = string
+}
+
+#-------------------------------
+# PROVIDER: MINIO
+#-------------------------------
+
 variable "provider_minio_host" {
   type    = string
   default = "s3.docker.localhost"
@@ -17,6 +25,10 @@ variable "provider_minio_password" {
   type    = string
   default = "changeme"
 }
+
+#-------------------------------
+# PROVIDER: POSTGRES
+#-------------------------------
 
 variable "provider_postgres_host" {
   type    = string

@@ -37,7 +37,7 @@ job "kestra" {
           "traefik.http.services.${destination}.loadbalancer.passhostheader=true",
         ]
       }
-      
+
       service {
         name     = "${destination}-management"
         provider = "nomad"
@@ -101,7 +101,7 @@ kestra:
 EOF
         destination = "local/application.yml"
       }
-      
+
       resources {
         cpu    = 350
         memory = 1024
