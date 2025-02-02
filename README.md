@@ -104,8 +104,13 @@ $ ministack --config configurations/clients/kestra-client-2/cluster.yaml --start
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
-* kestra.client-1.docker.localhost
-* kestra.client-2.docker.localhost
+* http://kestra.client-1.docker.localhost
+* http://kestra.client-2.docker.localhost
+
+Everytime you add/update/remove rules or scrape configs, do a prometheus reload:
+```sh
+$ curl -X POST http://prometheus.docker.localhost/-/reload
+```
 
 ---
 
