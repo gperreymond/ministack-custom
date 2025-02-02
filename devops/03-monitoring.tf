@@ -6,6 +6,22 @@ resource "nomad_namespace" "monitoring_system" {
   ]
 }
 
+resource "nomad_variable" "grafana_postgres_configuration" {
+  path      = "monitoring/grafana/configuration/postgres"
+  namespace = nomad_namespace.monitoring_system.id
+  items = {
+    host     = "${var.provider_postgres_host}"
+    port     = "${var.provider_postgres_port}"
+    database = "grafana"
+    username = "grafana"
+    password = "${random_password.grafana_postgres.result}"
+  }
+
+  depends_on = [
+    nomad_namespace.monitoring_system,
+  ]
+}
+
 resource "nomad_job" "prometheus" {
   jobspec = templatefile("${path.module}/jobs/prometheus.hcl", {
     destination = nomad_namespace.monitoring_system.id,
@@ -14,7 +30,7 @@ resource "nomad_job" "prometheus" {
   purge_on_destroy = true
 
   depends_on = [
-    nomad_namespace.monitoring_system,
+    nomad_variable.grafana_postgres_configuration,
   ]
 }
 
@@ -24,6 +40,7 @@ resource "null_resource" "monitoring" {
     null_resource.postgres,
     // resources
     nomad_namespace.monitoring_system,
+    nomad_variable.grafana_postgres_configuration,
     nomad_job.prometheus,
   ]
 }
