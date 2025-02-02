@@ -6,7 +6,7 @@ An example repository demonstrating how to use Ministack.
 
 ## Features
 
-- **Nomad Cluster**: With only servers setup
+- **Nomad Cluster**: With 3 servers and monitoring client
 - **Kestra**: A complete terraform examples, adding single tenant kestra clients with nomad at edge
 
 ```yaml
@@ -36,6 +36,13 @@ services:
       - name: 'nomad-server-1'
       - name: 'nomad-server-2'
       - name: 'nomad-server-3'
+    clients:
+      - name: monitoring-system
+        local_volumes:
+          - 'prometheus/rules:/mnt/prometheus/rules'
+          - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
+        docker_volumes:
+          - 'prometheus_data'
 ```
 
 ---
