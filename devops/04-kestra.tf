@@ -26,7 +26,7 @@ EOF
   filename = "${var.root_path}/../../../configurations/clients/${each.value.hostname}/cluster.yaml"
 
   depends_on = [
-    null_resource.postgres,
+    null_resource.monitoring,
   ]
 }
 
@@ -82,7 +82,7 @@ resource "nomad_job" "kestra" {
 
   jobspec = templatefile("${path.module}/jobs/kestra.hcl", {
     destination = nomad_namespace.kestra[each.value.hostname].id,
-    docker_tag  = "0.20.14"
+    docker_tag  = "v0.20.14"
     dnsname     = each.value.dnsname
     traefik_ip  = var.traefik_ip
   })
@@ -97,7 +97,7 @@ resource "nomad_job" "kestra" {
 resource "null_resource" "kestra" {
   depends_on = [
     // parent
-    null_resource.postgres,
+    null_resource.monitoring,
     // resources
     local_file.kestra_nomad_client,
     nomad_namespace.kestra,

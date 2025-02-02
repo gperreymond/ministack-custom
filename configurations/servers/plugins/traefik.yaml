@@ -15,7 +15,7 @@ services:
       - '--providers.docker.exposedbydefault=false'
       - '--providers.nomad=true'
       - '--providers.nomad.endpoint.address=http://10.1.0.11:4646'
-      - '--providers.nomad.namespaces=kestra-client-1,kestra-client-2,kestra-client-3'
+      - '--providers.nomad.namespaces=monitoring-system,kestra-client-1,kestra-client-2,kestra-client-3'
       - '--providers.nomad.exposedByDefault=false'
       - '--entryPoints.web.address=:80'
       - '--entryPoints.metrics.address=:8082'

@@ -48,7 +48,7 @@ job "kestra" {
       }
 
       config {
-        image = "kestra/kestra:v${docker_tag}"
+        image = "kestra/kestra:${docker_tag}"
         args  = ["server", "standalone"]
         ports = ["http", "management"]
         volumes = [

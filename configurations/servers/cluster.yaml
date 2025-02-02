@@ -24,3 +24,10 @@ services:
       - name: 'nomad-server-1'
       - name: 'nomad-server-2'
       - name: 'nomad-server-3'
+    clients:
+      - name: monitoring-system
+        local_volumes:
+          - 'prometheus/rules:/mnt/prometheus/rules'
+          - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
+        docker_volumes:
+          - 'prometheus_data'
