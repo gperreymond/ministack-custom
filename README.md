@@ -75,6 +75,7 @@ nomad 1.9.6
 terraform 1.10.4
 terragrunt 0.72.6
 jq 1.7.1
+mc 2025-02-15T10-36-16Z
 ```
 
 ---
