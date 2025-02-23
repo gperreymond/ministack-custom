@@ -63,6 +63,18 @@ resource "nomad_job" "thanos_store" {
   ]
 }
 
+resource "nomad_job" "thanos_query" {
+  jobspec = templatefile("${path.module}/jobs/thanos-query.hcl", {
+    destination       = nomad_namespace.monitoring_system.id,
+    thanos_docker_tag = "v0.37.2"
+  })
+  purge_on_destroy = true
+
+  depends_on = [
+    nomad_job.thanos_store,
+  ]
+}
+
 resource "null_resource" "monitoring" {
   depends_on = [
     // parent
@@ -73,5 +85,6 @@ resource "null_resource" "monitoring" {
     nomad_variable.thanos_store_configuration,
     nomad_job.prometheus,
     nomad_job.thanos_store,
+    nomad_job.thanos_query,
   ]
 }
