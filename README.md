@@ -10,7 +10,7 @@ An example repository demonstrating how to use Ministack.
 - **Monitoring**: Prometheus, complete Thanos implementation, Grafana
 
 ```yaml
-name: 'kestra'
+name: 'europe'
 datacenter: 'europe-paris'
 
 plugins:
