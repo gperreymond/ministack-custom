@@ -16,6 +16,12 @@ job "prometheus" {
       port "http" {
         to = 9090
       }
+      port "thanos-grpc" {
+        to = 10901
+      }
+      port "thanos-http" {
+        to = 10902
+      }
     }
 
     task "thanos-sidecar" {
@@ -25,10 +31,6 @@ job "prometheus" {
       config {
         image      = "thanosio/thanos:${thanos_docker_tag}"
         privileged = true
-        volumes = [
-          "/mnt/prometheus_data:/prometheus",
-          "secrets/bucket.yml:/etc/bucket.yml",
-        ]
         args = [
           "sidecar",
           "--tsdb.path",
@@ -38,6 +40,14 @@ job "prometheus" {
           "--objstore.config-file",
           "/etc/bucket.yml",
         ]
+        volumes = [
+          "/mnt/prometheus_data:/prometheus",
+          "secrets/bucket.yml:/etc/bucket.yml",
+        ]
+        ports = ["thanos-grpc", "thanos-http"]
+        extra_hosts = [
+          "s3.docker.localhost:10.1.0.2"
+        ]
       }
 
       template {
@@ -46,6 +56,7 @@ job "prometheus" {
 type: s3
 config:
   bucket: {{ .bucket }}
+  insecure: true
   endpoint: {{ .endpoint }}
   access_key: {{ .access_key }}
   secret_key: {{ .secret_key }}
@@ -57,6 +68,24 @@ EOF
       resources {
         cpu    = 250
         memory = 128
+      }
+
+      service {
+        provider = "nomad"
+        name     = "thanos-sidecar-grpc"
+        port     = "thanos-grpc"
+      }
+
+      service {
+        provider = "nomad"
+        name     = "thanos-sidecar-http"
+        port     = "thanos-http"
+        check {
+          type     = "http"
+          path     = "/-/ready"
+          interval = "10s"
+          timeout  = "2s"
+        }
       }
 
       logs {
@@ -127,7 +156,6 @@ EOF
           "traefik.http.routers.prometheus.entrypoints=web",
           "traefik.http.services.prometheus.loadbalancer.passhostheader=true",
         ]
-
         check {
           type     = "http"
           path     = "/-/ready"

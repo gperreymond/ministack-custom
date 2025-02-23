@@ -32,4 +32,5 @@ services:
           - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
         docker_volumes:
           - 'prometheus_data'
+          - 'thanos_store_data'
       - name: worker-global
