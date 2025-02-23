@@ -12,6 +12,7 @@ plugins:
 services:
   nomad:
     enabled: true
+    version: '1.9.6'
     config:
       server:
         bootstrap_expect: 3
@@ -31,3 +32,4 @@ services:
           - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
         docker_volumes:
           - 'prometheus_data'
+      - name: worker-global

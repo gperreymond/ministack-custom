@@ -5,10 +5,10 @@ terraform {
     endpoints = {
       s3 = "http://s3.docker.localhost"
     }
-    access_key                  = "tSad5eW75d49s4uXDlJf"                     # Put your own
-    secret_key                  = "uE8OKnRU6lWwO1vxpgstklULz5j9KVauZXB5Ohzw" # Put your own
-    region                      = "global"                                   # Region validation will be skipped
-    skip_credentials_validation = true                                       # Skip AWS related checks and validations
+    access_key                  = "tSad5eW75d49s4uXDlJf"
+    secret_key                  = "uE8OKnRU6lWwO1vxpgstklULz5j9KVauZXB5Ohzw"
+    region                      = "global"
+    skip_credentials_validation = true
     skip_requesting_account_id  = true
     skip_metadata_api_check     = true
     skip_region_validation      = true

@@ -6,8 +6,8 @@ An example repository demonstrating how to use Ministack.
 
 ## Features
 
-- **Nomad Cluster**: With 3 servers and monitoring client
-- **Kestra**: A complete terraform examples, adding single tenant kestra clients with nomad at edge
+- **Nomad Cluster**: With 3 servers, monitoring client, worker client
+- **Monitoring**: Prometheus, complete Thanos implementation, Grafana
 
 ```yaml
 name: 'kestra'
@@ -43,6 +43,7 @@ services:
           - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
         docker_volumes:
           - 'prometheus_data'
+      - name: worker-global
 ```
 
 ---
@@ -65,10 +66,16 @@ $ curl -fsSL https://raw.githubusercontent.com/gperreymond/ministack/main/instal
 ### 2. Initial Setup
 Prepare your environment by executing the setup script:
 ```sh
-$ ./scripts/asdf.sh
+$ ./scripts/install-dependencies.sh
 ```
-This will:
-* Install ASDF dependencies.
+This will install all ASDF dependencies:
+
+```
+nomad 1.9.6
+terraform 1.10.4
+terragrunt 0.72.6
+jq 1.7.1
+```
 
 ---
 
@@ -90,11 +97,14 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 
 ### Terragrunt
 
+After all is op and running, it's time to use terraform.
+
 ```sh
+# run only once, to create the bucket in minio for terraform states
+$ ./scripts/init-minio.sh
+# then very classic approach
 $ terragrunt init
 $ terragrunt apply
-$ ministack --config configurations/clients/kestra-client-1/cluster.yaml --start
-$ ministack --config configurations/clients/kestra-client-2/cluster.yaml --start
 ```
 
 ---
@@ -102,7 +112,7 @@ $ ministack --config configurations/clients/kestra-client-2/cluster.yaml --start
 ## Directory Structure
 
 - **scripts/**: Contains script.
-- **devops/**: Contains all works to have dynamic kestra single tenant clients.
+- **devops/**: Contains terraform infra provisionning.
 
 ---
 
@@ -111,8 +121,7 @@ $ ministack --config configurations/clients/kestra-client-2/cluster.yaml --start
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
-* http://kestra.client-1.docker.localhost
-* http://kestra.client-2.docker.localhost
+
 
 Everytime you add/update/remove rules or scrape configs, do a prometheus reload:
 ```sh
