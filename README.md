@@ -118,9 +118,13 @@ $ terragrunt apply
 
 ## Some useful links
 
+When ministack has started:
 * http://traefik.docker.localhost
 * http://nomad.docker.localhost
 * http://minio-webui.docker.localhost (admin/changeme)
+
+After terraform apply:
+* http://prometheus.docker.localhost
 
 
 Everytime you add/update/remove rules or scrape configs, do a prometheus reload:
