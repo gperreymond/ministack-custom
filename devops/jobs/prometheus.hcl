@@ -18,12 +18,59 @@ job "prometheus" {
       }
     }
 
+    task "thanos-sidecar" {
+      driver = "docker"
+      user   = "root"
+
+      config {
+        image      = "thanosio/thanos:${thanos_docker_tag}"
+        privileged = true
+        volumes = [
+          "/mnt/prometheus_data:/prometheus",
+          "secrets/bucket.yml:/etc/bucket.yml",
+        ]
+        args = [
+          "sidecar",
+          "--tsdb.path",
+          "/prometheus",
+          "--prometheus.url",
+          "http://localhost:9090",
+          "--objstore.config-file",
+          "/etc/bucket.yml",
+        ]
+      }
+
+      template {
+        data        = <<-EOF
+{{- with nomadVar "monitoring/thanos-store/configuration/bucket" }}
+type: s3
+config:
+  bucket: {{ .bucket }}
+  endpoint: {{ .endpoint }}
+  access_key: {{ .access_key }}
+  secret_key: {{ .secret_key }}
+{{- end }}
+EOF
+        destination = "secrets/bucket.yml"
+      }
+
+      resources {
+        cpu    = 250
+        memory = 128
+      }
+
+      logs {
+        max_files     = 1
+        max_file_size = 5
+      }
+    }
+
     task "prometheus" {
       driver = "docker"
       user   = "root"
 
       config {
-        image      = "prom/prometheus:${docker_tag}"
+        image      = "prom/prometheus:${prometheus_docker_tag}"
         privileged = true
         args = [
           "--config.file=/etc/prometheus/prometheus.yml",
@@ -52,6 +99,8 @@ global:
   evaluation_interval: 1m
   scrape_interval: 1m
   scrape_timeout: 10s
+  external_labels:
+    cluster: 'europe'
 rule_files:
   - '/etc/prometheus/rules/*.yaml'
   - '/etc/prometheus/rules/*.yml'
