@@ -127,6 +127,7 @@ After terraform apply:
 * http://prometheus.docker.localhost
 * http://thanos-store.docker.localhost
 * http://thanos-query.docker.localhost
+* http://thanos-query-frontend.docker.localhost
 
 
 Everytime you add/update/remove rules or scrape configs, do a prometheus reload:
