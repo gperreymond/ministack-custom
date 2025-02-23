@@ -112,7 +112,7 @@ $ terragrunt apply
 
 ## Directory Structure
 
-- **scripts/**: Contains script.
+- **scripts/**: Contains bash scripts.
 - **devops/**: Contains terraform infra provisionning.
 
 ---
