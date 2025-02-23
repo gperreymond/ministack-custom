@@ -107,9 +107,9 @@ EOF
           "--web.console.libraries=/usr/share/prometheus/console_libraries",
           "--web.console.templates=/usr/share/prometheus/consoles",
           "--web.enable-remote-write-receiver",
-          "--web.enable-lifecycle",
           "--storage.tsdb.retention.time=6h",
           "--storage.tsdb.retention.size=4GB",
+          "--web.enable-lifecycle",
           "--storage.tsdb.max-block-duration=2h",
           "--storage.tsdb.min-block-duration=2h",
         ]
