@@ -43,7 +43,7 @@ job "thanos-query" {
 THANOS_SIDECAR_ENDPOINT_GRPC={{- range nomadService "thanos-sidecar-grpc" }}{{ .Address }}:{{ .Port }}{{- end }}
 THANOS_STORE_ENDPOINT_GRPC={{- range nomadService "thanos-store-grpc" }}{{ .Address }}:{{ .Port }}{{- end }}
 EOF
-        destination = "local/thanos.env"
+        destination = "local/.env"
       }
 
       resources {

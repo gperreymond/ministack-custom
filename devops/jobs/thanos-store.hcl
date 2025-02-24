@@ -41,7 +41,7 @@ job "thanos-store" {
         ]
         ports = ["thanos-grpc", "thanos-http"]
         extra_hosts = [
-          "s3.docker.localhost:10.1.0.2"
+          "s3.docker.localhost:10.1.0.2",
         ]
       }
 

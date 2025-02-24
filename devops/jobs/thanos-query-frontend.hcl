@@ -40,7 +40,7 @@ job "thanos-query-frontend" {
         data        = <<-EOF
 THANOS_QUERY_ENDPOINT_HTTP=http://{{- range nomadService "thanos-query-http" }}{{ .Address }}:{{ .Port }}{{- end }}
 EOF
-        destination = "local/thanos.env"
+        destination = "local/.env"
       }
 
       resources {
