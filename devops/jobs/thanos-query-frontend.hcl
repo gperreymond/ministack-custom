@@ -27,10 +27,8 @@ job "thanos-query-frontend" {
         privileged = true
         args = [
           "query-frontend",
-          "--http-address",
-          "0.0.0.0:9090",
-          "--query-frontend.downstream-url",
-          "$${THANOS_QUERY_ENDPOINT_HTTP}",
+          "--http-address=0.0.0.0:9090",
+          "--query-frontend.downstream-url=$${THANOS_QUERY_ENDPOINT_HTTP}",
         ]
         ports = ["thanos-http"]
       }

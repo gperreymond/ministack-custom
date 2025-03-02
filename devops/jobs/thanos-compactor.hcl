@@ -1,4 +1,4 @@
-job "thanos-store" {
+job "thanos-compactor" {
   datacenters = ["europe-paris"]
   namespace   = "${destination}"
   type        = "service"
@@ -8,20 +8,17 @@ job "thanos-store" {
     value     = "europe-paris-${destination}"
   }
 
-  group "thanos-store" {
+  group "thanos-compactor" {
     count = 1
 
     network {
       mode = "bridge"
-      port "thanos-grpc" {
-        to = 10901
-      }
       port "thanos-http" {
         to = 10902
       }
     }
 
-    task "thanos-store" {
+    task "thanos-compactor" {
       driver = "docker"
       user   = "root"
 
@@ -29,15 +26,22 @@ job "thanos-store" {
         image      = "thanosio/thanos:${thanos_docker_tag}"
         privileged = true
         args = [
-          "store",
+          "compact",
           "--data-dir=/data",
           "--objstore.config-file=/etc/bucket.yml",
+          "--compact.concurrency=32",
+          "--retention.resolution-raw=30d",
+          "--retention.resolution-5m=120d",
+          "--retention.resolution-1h=1y",
+          "--consistency-delay=30m",
+          "--wait",
+          "--delete-delay=0",
         ]
         volumes = [
-          "/mnt/thanos_store_data:/data",
+          "/mnt/thanos_compactor_data:/data",
           "secrets/bucket.yml:/etc/bucket.yml",
         ]
-        ports = ["thanos-grpc", "thanos-http"]
+        ports = ["thanos-http"]
         extra_hosts = [
           "s3.docker.localhost:10.1.0.2",
         ]
@@ -59,19 +63,13 @@ EOF
       }
 
       resources {
-        cpu    = 250
-        memory = 512
+        cpu    = 1000
+        memory = 2048
       }
 
       service {
         provider = "nomad"
-        name     = "thanos-store-grpc"
-        port     = "thanos-grpc"
-      }
-
-      service {
-        provider = "nomad"
-        name     = "thanos-store-http"
+        name     = "thanos-compactor-http"
         port     = "thanos-http"
         check {
           type     = "http"
@@ -82,9 +80,9 @@ EOF
         tags = [
           "metrics", "monitoring",
           "traefik.enable=true",
-          "traefik.http.routers.thanos-store.rule=Host(`thanos-store.docker.localhost`)",
-          "traefik.http.routers.thanos-store.entrypoints=web",
-          "traefik.http.services.thanos-store.loadbalancer.passhostheader=true",
+          "traefik.http.routers.thanos-compactor.rule=Host(`thanos-compactor.docker.localhost`)",
+          "traefik.http.routers.thanos-compactor.entrypoints=web",
+          "traefik.http.services.thanos-compactor.loadbalancer.passhostheader=true",
         ]
       }
 

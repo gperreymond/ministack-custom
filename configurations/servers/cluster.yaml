@@ -33,4 +33,5 @@ services:
         docker_volumes:
           - 'prometheus_data'
           - 'thanos_store_data'
+          - 'thanos_compactor_data'
       - name: worker-global

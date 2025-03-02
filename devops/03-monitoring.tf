@@ -60,7 +60,7 @@ resource "nomad_variable" "thanos_store_configuration" {
 resource "nomad_job" "prometheus" {
   jobspec = templatefile("${path.module}/jobs/prometheus.hcl", {
     destination           = nomad_namespace.monitoring_system.id,
-    prometheus_docker_tag = "v3.1.0"
+    prometheus_docker_tag = "v3.2.1"
     thanos_docker_tag     = "v0.37.2"
   })
   purge_on_destroy = true
@@ -107,6 +107,18 @@ resource "nomad_job" "thanos_query_frontend" {
   ]
 }
 
+resource "nomad_job" "thanos_compactor" {
+  jobspec = templatefile("${path.module}/jobs/thanos-compactor.hcl", {
+    destination       = nomad_namespace.monitoring_system.id,
+    thanos_docker_tag = "v0.37.2"
+  })
+  purge_on_destroy = true
+
+  depends_on = [
+    nomad_job.thanos_query_frontend,
+  ]
+}
+
 resource "nomad_job" "grafana" {
   jobspec = templatefile("${path.module}/jobs/grafana.hcl", {
     destination        = nomad_namespace.monitoring_system.id,
@@ -115,7 +127,7 @@ resource "nomad_job" "grafana" {
   purge_on_destroy = true
 
   depends_on = [
-    nomad_job.thanos_query_frontend,
+    nomad_job.thanos_compactor,
     nomad_variable.grafana_postgres_configuration,
     random_password.grafana_admin_password,
   ]
@@ -135,6 +147,7 @@ resource "null_resource" "monitoring" {
     nomad_job.thanos_store,
     nomad_job.thanos_query,
     nomad_job.thanos_query_frontend,
+    nomad_job.thanos_compactor,
     nomad_job.grafana,
   ]
 }

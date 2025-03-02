@@ -27,12 +27,9 @@ job "thanos-query" {
         privileged = true
         args = [
           "query",
-          "--http-address",
-          "0.0.0.0:9090",
-          "--endpoint",
-          "$${THANOS_SIDECAR_ENDPOINT_GRPC}",
-          "--endpoint",
-          "$${THANOS_STORE_ENDPOINT_GRPC}",
+          "--http-address=0.0.0.0:9090",
+          "--endpoint=$${THANOS_SIDECAR_ENDPOINT_GRPC}",
+          "--endpoint=$${THANOS_STORE_ENDPOINT_GRPC}",
         ]
         ports = ["thanos-http"]
       }

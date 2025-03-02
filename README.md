@@ -43,6 +43,8 @@ services:
           - 'prometheus/scrape_configs:/mnt/prometheus/scrape_configs'
         docker_volumes:
           - 'prometheus_data'
+          - 'thanos_store_data'
+          - 'thanos_compactor_data'
       - name: worker-global
 ```
 
@@ -127,6 +129,7 @@ When ministack has started:
 After terraform apply:
 * http://prometheus.docker.localhost
 * http://thanos-store.docker.localhost
+* http://thanos-compactor.docker.localhost
 * http://thanos-query.docker.localhost
 * http://thanos-query-frontend.docker.localhost
 * http://grafana.docker.localhost
