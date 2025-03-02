@@ -1,0 +1,22 @@
+scrape_configs:
+- job_name: 'nomad-servers'
+  honor_timestamps: true
+  metrics_path: '/v1/metrics'
+  scheme: 'http'
+  params: 
+    format: ['prometheus']  
+  static_configs:
+    - targets:
+        - '10.1.0.11:4646'
+        - '10.1.0.12:4646'
+        - '10.1.0.13:4646'
+- job_name: 'nomad-clients'
+  honor_timestamps: true
+  metrics_path: '/v1/metrics'
+  scheme: 'http'
+  params: 
+    format: ['prometheus']  
+  static_configs:
+    - targets:
+        - '10.1.0.101:4646'
+        - '10.1.0.102:4646'
