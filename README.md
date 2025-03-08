@@ -24,6 +24,7 @@ plugins:
 services:
   nomad:
     enabled: true
+    version: '1.9.6'
     config:
       server:
         bootstrap_expect: 3
