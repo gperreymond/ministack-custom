@@ -101,7 +101,7 @@ $ ministack --config configurations/servers/cluster.yaml --stop
 
 ### Terragrunt
 
-After the cluster ip and running, it's time to deploy some jobs.
+Now with this nomad cluster, it's time to deploy some jobs.
 
 ```sh
 # run only once, to create the bucket in minio for terraform states
