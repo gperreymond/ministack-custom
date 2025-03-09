@@ -1,0 +1,17 @@
+{
+    forward . 1.1.1.1
+}
+
+service.nomad.:1053 {
+    errors
+    debug
+    health
+    log
+    nomad {
+        zone service.nomad
+	  	address http://10.1.0.11:4646 http://10.1.0.12:4646 http://10.1.0.13:4646
+        ttl 10
+    }
+    prometheus :9153
+    cache 30
+}

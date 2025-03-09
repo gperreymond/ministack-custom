@@ -1,0 +1,14 @@
+services:
+  coredns:
+    image: 'ghcr.io/ituoga/coredns-nomad:v0.1.0'
+    container_name: 'coredns'
+    command:
+    - '-conf'
+    - '/etc/coredns/Corefile'
+    - '-dns.port'
+    - '1053'
+    volumes:
+      - './configurations/coredns/Corefile:/etc/coredns/Corefile:ro'
+    networks:
+      ministack:
+        ipv4_address: '10.1.0.5'

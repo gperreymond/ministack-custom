@@ -2,6 +2,8 @@ name: 'europe'
 datacenter: 'europe-paris'
 
 plugins:
+  # nomad service dns
+  - 'plugins/coredns.yaml'
   # simulate external loadbalancer
   - 'plugins/traefik.yaml'
   # simulate external bucket s3

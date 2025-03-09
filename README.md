@@ -14,6 +14,8 @@ name: 'europe'
 datacenter: 'europe-paris'
 
 plugins:
+  # nomad service dns
+  - 'plugins/coredns.yaml'
   # simulate external loadbalancer
   - 'plugins/traefik.yaml'
   # simulate external bucket s3
@@ -139,6 +141,14 @@ After terraform apply:
 Everytime you add/update/remove rules or scrape configs, do a prometheus reload:
 ```sh
 $ curl -X POST http://prometheus.docker.localhost/-/reload
+```
+
+---
+
+## CoreDNS
+
+```sh
+$ dig +short srv grafana-http.monitoring-system.service.nomad @10.1.0.5 -p 1053
 ```
 
 ---
